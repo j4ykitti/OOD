@@ -8,26 +8,25 @@ def analyze_string(input_str, pin):
     char_to_find = input_str[pin - 1]
     
     def countingpos(pin1,value1 = 0):
-        if value1 == 0:
-            x1 = 0
-        if input_str[pin1] != char_to_find:
-            return x1
+        
+        if pin1 >= len(input_str) or input_str[pin1] != char_to_find:
+            return value1
         if input_str[pin1] == char_to_find:
-            x1 += 1
-        countingpos(pin1+1)
-    def countingneg(pin2,value2 = 0):
-        if value2 == 0:
-            value2 = 0
-        if input_str[pin2] != char_to_find:
+            value1 += 1
+        return countingpos(pin1+1,value1)
+     
+    def countingneg(pin2, value2=0):
+        if pin2 < 0 or input_str[pin2] != char_to_find:
             return value2
         if input_str[pin2] == char_to_find:
-            value2 += 2
-        countingneg(pin2-1)    
+            value2 += 1
+        return countingneg(pin2 - 1, value2)
     
-    
-    print(char_to_find,countingpos(pin-1),countingneg(pin-2))
+    pos = countingpos(pin-1,0)
+    neg = countingneg(pin-2,0)
+    print(char_to_find,pos,neg)
 inp =  input("input number : ").split(',')
 str = inp[0]
 pin = int(inp[1])
 output = analyze_string(str,pin)
-print(output)
+

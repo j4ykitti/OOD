@@ -1,2 +1,1 @@
-
-            return print(op)
+line2.append(" " * (l_box_width - l_root))

@@ -4,6 +4,8 @@ class Node:
         self.next = None
         self.prev = None
 
+    def __str__(self):
+        return str(self.data)
 class LinkedList:
     def __init__(self):
         self.head = None
@@ -71,17 +73,17 @@ class LinkedList:
             return print(f'index = {pos} and data = {item}')
 
         node = Node(item)
-        if pos == 0:
+        if pos == 0: #push front
             self._size += 1
             node.next, self.head.prev, self.head = self.head, node, node
             return print(f'index = {pos} and data = {item}')
 
-        if pos == self.size():
+        if pos == self.size(): #push back
             self._size += 1
             node.prev, self.tail.next, self.tail = self.tail, node, node
             return print(f'index = {pos} and data = {item}')
-
-        cur, index = self.head, 0
+        #push at index
+        cur, index = self.head, 0 
         while index != pos-1:
             index += 1
             cur = cur.next
@@ -106,13 +108,15 @@ class LinkedList:
             self.head = self.tail = None
             self._size -= 1
             return print(f'removed : {item} from index : 0')
-
+        
+        #pop front
         self._size -= 1
         if item == self.head.data:
             self.head = self.head.next
             self.head.prev = None
             return print(f'removed : {item} from index : 0')
 
+        #pop at index 
         index = 0
         while cur.next != None:
             if cur.data == item:
@@ -120,6 +124,8 @@ class LinkedList:
                 return print(f'removed : {item} from index : {index}')
             index += 1
             cur = cur.next
+
+        #pop back
         if cur.data == item:
             self.tail = self.tail.prev
             self.tail.next = None
